@@ -8,7 +8,9 @@ import {
   Phone,
   Link,
   Globe,
-  ArrowUpRight
+  ArrowUpRight,
+  Brain,
+  Construction
 } from 'lucide-react';
 import DinarPhoto from './Dinar.jpg';
 
@@ -94,6 +96,17 @@ const Resume = () => {
               <Code className="h-5 w-5 sm:h-4 sm:w-4 mb-1 sm:mb-0 sm:mr-2" />
               Навыки
             </button>
+            <button
+              onClick={() => setActiveSection('thoughts')}
+              className={`flex flex-col sm:flex-row items-center px-2 sm:px-3 py-2 sm:py-4 text-[10px] sm:text-sm font-medium border-b-2 flex-1 sm:flex-initial ${
+                activeSection === 'thoughts'
+                  ? 'border-purple-500 text-purple-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              <Brain className="h-5 w-5 sm:h-4 sm:w-4 mb-1 sm:mb-0 sm:mr-2" />
+              Мысли
+            </button>
           </div>
         </div>
       </nav>
@@ -136,7 +149,7 @@ const Resume = () => {
           <div className="bg-white shadow rounded-lg p-4 sm:p-6 w-full max-w-6xl mx-auto">
             <h2 className="text-lg sm:text-xl font-semibold mb-4 text-purple-600">Обо мне</h2>
             <p className="text-gray-600 text-sm sm:text-base">
-              Здесь вы можете написать краткую информацию о себе, своих целях и интересах.
+              Всем привет! Меня зовут Динар, мне 20 лет. Я занимаюсь разработкой веб-приложений, telegram ботов и мобильных приложений. Данный сайт является моим портфолио, где вы можете узнать обо мне, моем опыте работы и моих навыках. Также вы можете посмотреть мои проекты во вкладке "Опыт работы".Также думаю сделать из этого сервиса некий блог, где я буду делиться своими мыслями и идеями.
             </p>
           </div>
         )}
@@ -304,7 +317,50 @@ const Resume = () => {
                         App Store
                       </a>
                     </div>
+                    
                   </div>
+                  {/* Проект 6 */}
+                  <a 
+                        href="https://greenapple02.ru" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="block border rounded-lg p-4 hover:shadow-lg transition-shadow cursor-pointer group relative"
+                      >
+                        <div className="flex justify-between items-start">
+                          <h3 className="font-medium text-lg mb-2 text-purple-600 group-hover:text-purple-700">Сайт-визитка для ремонта техники</h3>
+                          <ArrowUpRight className="w-5 h-5 text-purple-600 group-hover:text-purple-700 transition-colors" />
+                        </div>
+                        <p className="text-gray-600 mb-3">
+                          Сайт для компании Green Apple, которая занимается ремонтом цифровой техники.
+                        </p>
+                        <div className="flex flex-wrap gap-2 mb-3">
+                          <span className="px-2 py-1 bg-purple-100 text-purple-600 rounded text-sm">Html</span>
+                          <span className="px-2 py-1 bg-purple-100 text-purple-600 rounded text-sm">Css</span>
+                          <span className="px-2 py-1 bg-purple-100 text-purple-600 rounded text-sm">JS</span>
+                          <span className="px-2 py-1 bg-purple-100 text-purple-600 rounded text-sm">Wordpress</span>
+                        </div>
+                      </a>
+                  {/* Проект 7 */}
+                  <a 
+                        href="https://t.me/smart_hutor_bot" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="block border rounded-lg p-4 hover:shadow-lg transition-shadow cursor-pointer group relative"
+                      >
+                        <div className="flex justify-between items-start">
+                          <h3 className="font-medium text-lg mb-2 text-purple-600 group-hover:text-purple-700">Telegram-бот для управления пляжем</h3>
+                          <ArrowUpRight className="w-5 h-5 text-purple-600 group-hover:text-purple-700 transition-colors" />
+                        </div>
+                        <p className="text-gray-600 mb-3">
+                          Автоматизация работы пляжа, проход при помощи qr-кода, все транзакции проходят через бота.
+                        </p>
+                        <div className="flex flex-wrap gap-2 mb-3">
+                          <span className="px-2 py-1 bg-purple-100 text-purple-600 rounded text-sm">Django</span>
+                          <span className="px-2 py-1 bg-purple-100 text-purple-600 rounded text-sm">FastApi</span>
+                          <span className="px-2 py-1 bg-purple-100 text-purple-600 rounded text-sm">Aiogram</span>
+                          <span className="px-2 py-1 bg-purple-100 text-purple-600 rounded text-sm">Python</span>
+                        </div>
+                      </a>
                 </div>
               </div>
             </div>
@@ -379,6 +435,25 @@ const Resume = () => {
                   ))}
                 </div>
               </div>
+            </div>
+          </div>
+        )}
+
+        {activeSection === 'thoughts' && (
+          <div className="bg-white shadow rounded-lg p-4 sm:p-6 w-full max-w-6xl mx-auto">
+            <div className="flex flex-col items-center justify-center py-12">
+              {/* Прелоадер */}
+              <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-purple-600 mb-4"></div>
+              
+              {/* Иконка "в разработке" */}
+              <Construction className="w-16 h-16 text-purple-600 mb-4" />
+              
+              {/* Текст */}
+              <h2 className="text-xl font-semibold text-gray-800 mb-2">Раздел в разработке</h2>
+              <p className="text-gray-600 text-center max-w-md">
+                Скоро здесь появятся мои мысли и заметки о программировании, технологиях и не только. 
+                Следите за обновлениями!
+              </p>
             </div>
           </div>
         )}
