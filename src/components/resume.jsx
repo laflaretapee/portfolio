@@ -160,7 +160,7 @@ const Resume = () => {
             <div className="space-y-4 sm:space-y-6">
               <div className="border-l-2 border-purple-500 pl-4">
                 <h3 className="font-medium">Младший разработчик</h3>
-                <p className="text-gray-600">Компания Roscomtech • 2023 - настоящее время</p>
+                <p className="text-gray-600">Компания Roscomtech • 2024 - настоящее время</p>
                 <p className="mt-2 text-gray-600">
                   Создание и поддержка веб-приложений на FastApi, Django, Html, Css, Js. 
                   Разработка telegram ботов на Python. 
