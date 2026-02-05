@@ -20,6 +20,9 @@ permissions:
 jobs:
   build-posts:
     runs-on: ubuntu-latest
+    env:
+      CHANNEL: ${{ github.event.inputs.channel || vars.TELEGRAM_CHANNEL }}
+      LIMIT: ${{ github.event.inputs.limit || vars.TELEGRAM_LIMIT || '40' }}
     steps:
       - uses: actions/checkout@v4
 
@@ -29,13 +32,10 @@ jobs:
 
       - name: Generate src/content/telegram-posts.js
         run: |
-          CHANNEL="${{ github.event.inputs.channel }}"
-          LIMIT="${{ github.event.inputs.limit }}"
-
-          if [ -z "$LIMIT" ]; then LIMIT="40"; fi
           if [ -z "$CHANNEL" ]; then
-            echo "Input 'channel' is required for workflow_dispatch."
-            echo "Tip: set a repository variable TELEGRAM_CHANNEL and use it here if you want fully automatic schedule."
+            echo "Telegram channel is not set."
+            echo "Set repository variable TELEGRAM_CHANNEL (Settings → Secrets and variables → Actions → Variables),"
+            echo "or run workflow manually and pass 'channel' input."
             exit 1
           fi
 

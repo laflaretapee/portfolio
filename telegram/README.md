@@ -4,9 +4,12 @@
 
 Если канал публичный (есть страница `https://t.me/<channel>`), можно парсить веб-версию:
 
-1) Запусти workflow **Telegram channel → posts**
-2) Введи `channel`: `my_channel` или ссылку `https://t.me/my_channel`
-3) Workflow сгенерирует `src/content/telegram-posts.js` и закоммитит
+1) Один раз задай переменную репозитория `TELEGRAM_CHANNEL`:
+   `Settings → Secrets and variables → Actions → Variables`
+2) Workflow **Telegram channel → posts** будет запускаться по расписанию (каждые ~5 минут)
+3) При необходимости можно запускать вручную и передавать `channel` и `limit`
+
+Workflow сгенерирует `src/content/telegram-posts.js` и закоммитит.
 
 Ограничения: это парсинг HTML (может ломаться при изменениях Telegram), лучше подходит для последних N постов.
 
