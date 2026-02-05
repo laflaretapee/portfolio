@@ -12,6 +12,17 @@ This repo supports importing posts via GitHub Actions.
 
 Docs: `telegram/README.md`
 
+## Deploy to GitHub Pages
+
+This repo includes a workflow that builds the CRA app and deploys it to GitHub Pages.
+
+1) Push to `main`
+2) In GitHub repo: **Settings → Pages**
+3) Set **Source** to **GitHub Actions**
+4) Wait for workflow **Deploy to GitHub Pages**
+
+Note: `package.json` sets `"homepage": "."` so assets work under `https://<user>.github.io/<repo>/`.
+
 ## Available Scripts
 
 In the project directory, you can run:
