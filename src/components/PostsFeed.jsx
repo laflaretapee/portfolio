@@ -143,28 +143,15 @@ export default function PostsFeed() {
             <p className="mt-1 text-sm text-neutral-400">
               Лента в стиле Telegram: коротко, по делу, с тегами и поиском.
             </p>
-            <p className="mt-2 text-xs text-neutral-500">
-              {isAdmin ? (
-                <>
-                  Режим автора включён. Добавляй посты и копируй сниппет в{' '}
-                  <span className="font-medium text-neutral-300">
-                    src/content/posts.js
-                  </span>
-                  .
-                </>
-              ) : (
-                <>
-                  Для режима автора открой{' '}
-                  <a
-                    className="font-medium text-neutral-300"
-                    href="#/login"
-                  >
-                    #/login
-                  </a>
-                  .
-                </>
-              )}
-            </p>
+            {isAdmin ? (
+              <p className="mt-2 text-xs text-neutral-500">
+                Режим автора включён. Добавляй посты и копируй сниппет в{' '}
+                <span className="font-medium text-neutral-300">
+                  src/content/posts.js
+                </span>
+                .
+              </p>
+            ) : null}
           </div>
 
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
