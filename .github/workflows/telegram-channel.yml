@@ -1,0 +1,53 @@
+name: Telegram channel → posts
+
+on:
+  workflow_dispatch:
+    inputs:
+      channel:
+        description: 'Public channel username or link (e.g. my_channel or https://t.me/my_channel)'
+        required: true
+        default: ''
+      limit:
+        description: 'Max posts (optional)'
+        required: false
+        default: '40'
+  schedule:
+    - cron: '17 */6 * * *'
+
+permissions:
+  contents: write
+
+jobs:
+  build-posts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Generate src/content/telegram-posts.js
+        run: |
+          CHANNEL="${{ github.event.inputs.channel }}"
+          LIMIT="${{ github.event.inputs.limit }}"
+
+          if [ -z "$LIMIT" ]; then LIMIT="40"; fi
+          if [ -z "$CHANNEL" ]; then
+            echo "Input 'channel' is required for workflow_dispatch."
+            echo "Tip: set a repository variable TELEGRAM_CHANNEL and use it here if you want fully automatic schedule."
+            exit 1
+          fi
+
+          node scripts/telegram-channel-to-posts.mjs --channel "$CHANNEL" --out "src/content/telegram-posts.js" --limit "$LIMIT"
+
+      - name: Commit changes (if any)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add src/content/telegram-posts.js
+          git diff --cached --quiet && echo "No changes" && exit 0
+          git commit -m "chore(posts): sync from Telegram channel"
+          git push
+

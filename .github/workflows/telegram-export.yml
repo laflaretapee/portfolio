@@ -1,0 +1,64 @@
+name: Telegram export → posts
+
+on:
+  workflow_dispatch:
+    inputs:
+      from:
+        description: 'Filter "from" field (optional)'
+        required: false
+        default: ''
+      limit:
+        description: 'Max messages (optional)'
+        required: false
+        default: '80'
+      export_path:
+        description: 'Path to Telegram JSON export in repo'
+        required: false
+        default: 'telegram/result.json'
+  push:
+    paths:
+      - 'telegram/result.json'
+
+permissions:
+  contents: write
+
+jobs:
+  build-posts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Generate src/content/telegram-posts.js
+        run: |
+          EXPORT_PATH="${{ github.event.inputs.export_path }}"
+          if [ -z "$EXPORT_PATH" ]; then EXPORT_PATH="telegram/result.json"; fi
+          if [ ! -f "$EXPORT_PATH" ]; then
+            echo "Telegram export not found: $EXPORT_PATH"
+            echo "Put your JSON export at telegram/result.json (or run workflow_dispatch with custom export_path)."
+            exit 1
+          fi
+
+          FROM="${{ github.event.inputs.from }}"
+          LIMIT="${{ github.event.inputs.limit }}"
+          if [ -z "$LIMIT" ]; then LIMIT="80"; fi
+
+          if [ -n "$FROM" ]; then
+            node scripts/telegram-export-to-posts.mjs --in "$EXPORT_PATH" --out "src/content/telegram-posts.js" --from "$FROM" --limit "$LIMIT"
+          else
+            node scripts/telegram-export-to-posts.mjs --in "$EXPORT_PATH" --out "src/content/telegram-posts.js" --limit "$LIMIT"
+          fi
+
+      - name: Commit changes (if any)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add src/content/telegram-posts.js
+          git diff --cached --quiet && echo "No changes" && exit 0
+          git commit -m "chore(posts): update from Telegram export"
+          git push
+
