@@ -1,7 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { Calendar, Copy, Hash, Plus, Search, X } from 'lucide-react';
 import { posts as seedPosts } from '../content/posts';
-import { isAdminSession, logoutAdmin } from '../auth/admin';
 
 function cx(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -75,7 +74,10 @@ function Chip({ children, active, onClick }) {
 }
 
 export default function PostsFeed() {
-  const isAdmin = isAdminSession();
+  const canCompose =
+    typeof window !== 'undefined' &&
+    (window.location.hostname === 'localhost' ||
+      window.location.hostname === '127.0.0.1');
 
   const [query, setQuery] = useState('');
   const [tag, setTag] = useState('');
@@ -154,28 +156,15 @@ export default function PostsFeed() {
             ) : null}
           </div>
 
-          <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-            {isAdmin ? (
-              <>
-                <button
-                  onClick={() => setComposerOpen(true)}
-                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-violet-500 px-4 py-2 text-sm font-medium text-neutral-950 hover:bg-violet-400"
-                >
-                  <Plus className="h-4 w-4" />
-                  Новый пост
-                </button>
-                <button
-                  onClick={() => {
-                    logoutAdmin();
-                    setComposerOpen(false);
-                  }}
-                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-neutral-800 bg-neutral-950/40 px-4 py-2 text-sm text-neutral-200 hover:border-neutral-700"
-                >
-                  Выйти
-                </button>
-              </>
-            ) : null}
-          </div>
+          {canCompose ? (
+            <button
+              onClick={() => setComposerOpen(true)}
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-violet-500 px-4 py-2 text-sm font-medium text-neutral-950 hover:bg-violet-400"
+            >
+              <Plus className="h-4 w-4" />
+              Новый пост
+            </button>
+          ) : null}
         </div>
 
         <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
