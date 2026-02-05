@@ -12,7 +12,7 @@ on:
         required: false
         default: '40'
   schedule:
-    - cron: '17 */6 * * *'
+    - cron: '*/5 * * * *'
 
 permissions:
   contents: write
@@ -50,4 +50,3 @@ jobs:
           git diff --cached --quiet && echo "No changes" && exit 0
           git commit -m "chore(posts): sync from Telegram channel"
           git push
-
