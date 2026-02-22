@@ -154,24 +154,26 @@ const Resume = () => {
       <header className="mx-auto w-full max-w-5xl px-4 pt-10 sm:pt-14">
         <div className="rounded-3xl border border-neutral-800 bg-neutral-900/40 p-6 shadow-[0_0_0_1px_rgba(255,255,255,0.02)] backdrop-blur sm:p-8">
           <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-            <div className="flex items-start gap-4 sm:items-center sm:gap-5">
-              <div className="h-24 w-24 overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-900 shadow-sm sm:h-28 sm:w-28">
-                <img
-                  src={DinarPhoto}
-                  alt="Фото профиля"
-                  className="h-full w-full object-cover"
-                />
-              </div>
-              <div className="min-w-0">
-                <h1 className="text-3xl font-semibold leading-tight text-transparent bg-clip-text bg-gradient-to-r from-violet-300 via-fuchsia-200 to-cyan-200 sm:text-4xl">
-                  {personalInfo.name}
-                </h1>
-                <p className="mt-1 text-sm text-neutral-300 sm:text-base">
-                  {personalInfo.title}
-                </p>
-                <p className="mt-2 max-w-xl text-sm leading-relaxed text-neutral-400">
-                  {personalInfo.tagline}
-                </p>
+            <div className="w-full rounded-2xl border border-neutral-800 bg-neutral-950/35 p-4 sm:w-auto sm:border-0 sm:bg-transparent sm:p-0">
+              <div className="flex flex-col items-center gap-4 text-center sm:flex-row sm:items-center sm:gap-5 sm:text-left">
+                <div className="h-36 w-36 overflow-hidden rounded-3xl border border-neutral-700 bg-neutral-900 shadow-sm sm:h-28 sm:w-28 sm:rounded-2xl">
+                  <img
+                    src={DinarPhoto}
+                    alt="Фото профиля"
+                    className="h-full w-full object-cover object-top"
+                  />
+                </div>
+                <div className="min-w-0">
+                  <h1 className="text-2xl font-semibold leading-tight text-transparent bg-clip-text bg-gradient-to-r from-violet-300 via-fuchsia-200 to-cyan-200 sm:text-4xl">
+                    {personalInfo.name}
+                  </h1>
+                  <p className="mt-1 text-sm text-neutral-300 sm:text-base">
+                    {personalInfo.title}
+                  </p>
+                  <p className="mt-2 max-w-xl text-sm leading-relaxed text-neutral-400">
+                    {personalInfo.tagline}
+                  </p>
+                </div>
               </div>
             </div>
 
