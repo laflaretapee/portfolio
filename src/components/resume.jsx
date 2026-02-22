@@ -22,7 +22,8 @@ const personalInfo = {
   email: 'dinar.ziyazetdinov@bk.ru',
   phone: '+7 (927) 636-2683',
   github: 'https://github.com/laflaretapee',
-  telegram: 'https://t.me/dineroorwho',
+  telegram: 'https://t.me/dinar_ziyazetdinov',
+  telegramHandle: '@dinar_ziyazetdinov',
 };
 
 const experience = [
@@ -153,8 +154,8 @@ const Resume = () => {
       <header className="mx-auto w-full max-w-5xl px-4 pt-10 sm:pt-14">
         <div className="rounded-3xl border border-neutral-800 bg-neutral-900/40 p-6 shadow-[0_0_0_1px_rgba(255,255,255,0.02)] backdrop-blur sm:p-8">
           <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-            <div className="flex items-center gap-5">
-              <div className="h-20 w-20 overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-900 shadow-sm sm:h-24 sm:w-24">
+            <div className="flex items-start gap-4 sm:items-center sm:gap-5">
+              <div className="h-24 w-24 overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-900 shadow-sm sm:h-28 sm:w-28">
                 <img
                   src={DinarPhoto}
                   alt="Фото профиля"
@@ -162,13 +163,13 @@ const Resume = () => {
                 />
               </div>
               <div className="min-w-0">
-                <h1 className="truncate text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-violet-300 via-fuchsia-200 to-cyan-200 sm:text-3xl">
+                <h1 className="text-3xl font-semibold leading-tight text-transparent bg-clip-text bg-gradient-to-r from-violet-300 via-fuchsia-200 to-cyan-200 sm:text-4xl">
                   {personalInfo.name}
                 </h1>
                 <p className="mt-1 text-sm text-neutral-300 sm:text-base">
                   {personalInfo.title}
                 </p>
-                <p className="mt-2 text-sm text-neutral-400">
+                <p className="mt-2 max-w-xl text-sm leading-relaxed text-neutral-400">
                   {personalInfo.tagline}
                 </p>
               </div>
@@ -177,7 +178,7 @@ const Resume = () => {
             <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:justify-end">
               <a
                 href={`mailto:${personalInfo.email}`}
-                className="inline-flex items-center justify-center gap-2 rounded-xl border border-neutral-800 bg-neutral-950/40 px-4 py-2 text-sm text-neutral-100 no-underline hover:border-neutral-700 hover:bg-neutral-950/60"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-neutral-800 bg-neutral-950/40 px-4 py-2 text-sm text-neutral-100 no-underline hover:border-neutral-700 hover:bg-neutral-950/60 sm:w-auto"
               >
                 <Mail className="h-4 w-4 text-violet-300" />
                 Email
@@ -186,7 +187,7 @@ const Resume = () => {
                 href={personalInfo.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-xl border border-neutral-800 bg-neutral-950/40 px-4 py-2 text-sm text-neutral-100 no-underline hover:border-neutral-700 hover:bg-neutral-950/60"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-neutral-800 bg-neutral-950/40 px-4 py-2 text-sm text-neutral-100 no-underline hover:border-neutral-700 hover:bg-neutral-950/60 sm:w-auto"
               >
                 <Github className="h-4 w-4 text-neutral-200" />
                 GitHub
@@ -196,10 +197,10 @@ const Resume = () => {
                 href={personalInfo.telegram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-violet-500 px-4 py-2 text-sm font-medium text-neutral-950 no-underline hover:bg-violet-400"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-violet-500 px-4 py-2 text-sm font-medium text-neutral-950 no-underline hover:bg-violet-400 sm:w-auto"
               >
                 <Send className="h-4 w-4" />
-                Telegram
+                {personalInfo.telegramHandle}
               </a>
             </div>
           </div>
@@ -235,31 +236,37 @@ const Resume = () => {
       </header>
 
       <nav className="sticky top-0 z-20 mt-6 border-y border-neutral-800 bg-neutral-950/60 backdrop-blur">
-        <div className="mx-auto flex w-full max-w-5xl items-center justify-between gap-2 overflow-x-auto px-2 py-2 sm:px-4">
-          {navItems.map((item) => {
-            const Icon = item.icon;
-            const isActive = item.id === activeSection;
-            return (
-              <button
-                key={item.id}
-                onClick={() => setActiveSection(item.id)}
-                className={cx(
-                  'flex min-w-[92px] flex-1 items-center justify-center gap-2 rounded-xl px-3 py-2 text-xs font-medium transition sm:min-w-0 sm:flex-initial sm:text-sm',
-                  isActive
-                    ? 'bg-neutral-900 text-neutral-50 border border-neutral-800'
-                    : 'text-neutral-300 hover:text-neutral-50'
-                )}
-              >
-                <Icon
+        <div className="mx-auto w-full max-w-5xl px-2 py-2 sm:px-4">
+          <div className="grid grid-cols-2 gap-2 sm:flex sm:items-center sm:gap-2">
+            {navItems.map((item, index) => {
+              const Icon = item.icon;
+              const isActive = item.id === activeSection;
+              const isLastOddMobile =
+                navItems.length % 2 !== 0 && index === navItems.length - 1;
+
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => setActiveSection(item.id)}
                   className={cx(
-                    'h-4 w-4',
-                    isActive ? 'text-violet-300' : 'text-neutral-400'
+                    'flex w-full items-center justify-center gap-2 rounded-xl px-3 py-2 text-xs font-medium transition sm:flex-1 sm:text-sm',
+                    isLastOddMobile ? 'col-span-2' : '',
+                    isActive
+                      ? 'border border-neutral-800 bg-neutral-900 text-neutral-50'
+                      : 'text-neutral-300 hover:text-neutral-50'
                   )}
-                />
-                {item.label}
-              </button>
-            );
-          })}
+                >
+                  <Icon
+                    className={cx(
+                      'h-4 w-4',
+                      isActive ? 'text-violet-300' : 'text-neutral-400'
+                    )}
+                  />
+                  <span className="whitespace-nowrap">{item.label}</span>
+                </button>
+              );
+            })}
+          </div>
         </div>
       </nav>
 
@@ -453,18 +460,33 @@ const Resume = () => {
         {activeSection === 'thoughts' && <PostsFeed />}
       </main>
 
-      <footer className="border-t border-neutral-800 bg-neutral-950/60">
-        <div className="mx-auto flex w-full max-w-5xl flex-col gap-3 px-4 py-6 text-sm text-neutral-400 sm:flex-row sm:items-center sm:justify-between">
+      <footer className="mt-10 border-t border-neutral-800 bg-neutral-950/60">
+        <div className="mx-auto flex w-full max-w-5xl flex-col gap-3 px-4 pb-[calc(1.5rem+env(safe-area-inset-bottom))] pt-6 text-sm text-neutral-400 sm:flex-row sm:items-center sm:justify-between">
           <div>
             © {new Date().getFullYear()} {personalInfo.name}
           </div>
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
-            <a href={personalInfo.github} target="_blank" rel="noopener noreferrer">
+            <a
+              href={personalInfo.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="no-underline hover:underline"
+            >
               GitHub
             </a>
-            <a href={`mailto:${personalInfo.email}`}>Email</a>
-            <a href={personalInfo.telegram} target="_blank" rel="noopener noreferrer">
-              Telegram
+            <a
+              href={`mailto:${personalInfo.email}`}
+              className="no-underline hover:underline"
+            >
+              Email
+            </a>
+            <a
+              href={personalInfo.telegram}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="no-underline hover:underline"
+            >
+              {personalInfo.telegramHandle}
             </a>
           </div>
         </div>
@@ -534,4 +556,3 @@ const Resume = () => {
 };
 
 export default Resume;
-
